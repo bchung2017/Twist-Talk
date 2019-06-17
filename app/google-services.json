@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "963479808613",
+    "firebase_url": "https://twist-talk.firebaseio.com",
+    "project_id": "twist-talk",
+    "storage_bucket": "twist-talk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963479808613:android:79fff1eca15872b6",
+        "android_client_info": {
+          "package_name": "com.example.twist_talk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963479808613-ctpc7a98t9f1acobka6ej8p20ou6kebq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.twist_talk",
+            "certificate_hash": "135d4305a0aa9b616ff4b39a0e4893e29f512ec9"
+          }
+        },
+        {
+          "client_id": "963479808613-v9branl7cidudkjb3rtue3qg1iuqord4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA19siZUJVLQ_80J3QUtqUuqi2KcTBVDEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963479808613-v9branl7cidudkjb3rtue3qg1iuqord4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
