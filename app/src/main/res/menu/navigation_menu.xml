@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/nav_post"
-        android:title="Add New Post"
+        android:title="Add New Need"
         android:icon="@drawable/add_post"/>
     <item
         android:id="@+id/nav_profile"

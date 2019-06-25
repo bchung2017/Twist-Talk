@@ -28,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -64,43 +65,6 @@ public class MainActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser mCurrentUser = mAuth.getCurrentUser();
-        if (mCurrentUser != null) {
-            currentUserID = mAuth.getCurrentUser().getUid();
-            UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-            PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
-            UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener()
-            {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                {
-                    if(dataSnapshot.exists())
-                    {
-                    if(dataSnapshot.hasChild("fullname"))
-                    {
-                        String fullname = dataSnapshot.child("fullname").getValue().toString();
-                        NavProfileName.setText(fullname);
-                    }
-                    if(dataSnapshot.hasChild("profileimage"))
-                    {
-                        String image = dataSnapshot.child("profileimage").getValue().toString();
-                        Picasso.get().load(image).placeholder(R.drawable.profile).into(NavProfileImage);
-                    }
-                    else
-                    {
-                        Toast.makeText(MainActivity.this, "Profile name does not exist", Toast.LENGTH_SHORT).show();
-                    }
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError)
-                {
-
-                }
-            });
-        }
-
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
@@ -117,6 +81,8 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
         postList.setLayoutManager(linearLayoutManager);
+
+
 
         AddNewPostButton = (ImageButton) findViewById(R.id.add_new_post_button);
         AddNewPostButton.setOnClickListener(new View.OnClickListener()
@@ -137,14 +103,56 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DisplayAllUsersPosts();
+        if (mCurrentUser != null) {
+            currentUserID = mAuth.getCurrentUser().getUid();
+            UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+            PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+            UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                {
+                    if(dataSnapshot.exists())
+                    {
+                        if(dataSnapshot.hasChild("fullname"))
+                        {
+                            String fullname = dataSnapshot.child("fullname").getValue().toString();
+                            NavProfileName.setText(fullname);
+                        }
+                        if(dataSnapshot.hasChild("profileimage"))
+                        {
+                            String image = dataSnapshot.child("profileimage").getValue().toString();
+                            Picasso.get().load(image).placeholder(R.drawable.profile).into(NavProfileImage);
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this, "Profile name does not exist", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError)
+                {
+
+                }
+            });
+            DisplayAllUsersPosts();
+        }
+
+
+
+
     }
 
     private void DisplayAllUsersPosts()
     {
+        Query myPostsQuery = PostsRef.orderByChild("uid").startAt(currentUserID).endAt(currentUserID + "\uf8ff");
+
         FirebaseRecyclerOptions<Posts> options =
                 new FirebaseRecyclerOptions.Builder<Posts>()
-                        .setQuery(PostsRef, Posts.class)
+                        .setQuery(myPostsQuery, Posts.class)
                         .build();
 
         FirebaseRecyclerAdapter<Posts, PostViewHolder> adapter =

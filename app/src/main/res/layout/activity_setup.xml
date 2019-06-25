@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/register"
-    tools:context=".SetupActivity">
+    tools:context=".SetupActivity"
+    android:background="@color/colorPrimaryDark">
+
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/setup_profile_image"
@@ -31,6 +33,7 @@
         android:ems="10"
         android:hint="username"
         android:inputType="textMultiLine"
+        android:outlineSpotShadowColor="@color/colorAccent"
         android:padding="14dp" />
 
     <EditText

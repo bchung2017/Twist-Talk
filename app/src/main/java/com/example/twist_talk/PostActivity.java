@@ -81,7 +81,7 @@ public class PostActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Update Post");
+        getSupportActionBar().setTitle("Add Need");
 
         SelectPostImage.setOnClickListener(new View.OnClickListener()
         {
@@ -117,8 +117,8 @@ public class PostActivity extends AppCompatActivity
         }
         else
         {
-            loadingBar.setTitle("Add New Post");
-            loadingBar.setMessage("Please wait, while the post is being updated");
+            loadingBar.setTitle("Add New Need");
+            loadingBar.setMessage("Please wait, while the need is being updated");
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
